@@ -23,12 +23,20 @@ public class StockService {
     @Autowired
     private StockPriceFetcher stockPriceFetcher;
 
-    @Scheduled(fixedRate = 500)
+    @Autowired
+    private TrueDataService trueDataService;
+
+    //@Scheduled(fixedRate = 500)
     public void updateLivePrices() {
         stockPriceFetcher.getStockPrices();
     }
 
-    @Scheduled(fixedRate = 1000)
+    //@Scheduled(fixedRate = 1000)
+    public void updateLi() {
+        trueDataService.webSocketClient();
+    }
+
+    //@Scheduled(fixedRate = 1000)
     public void publishLivePrices() {
         //log.info("response..."+new Date());
         if (StockDataRepo.stockDataList.stream().findFirst().isPresent()) {
